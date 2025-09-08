@@ -1,4 +1,5 @@
 from importlib.abc import Loader
+from sys import prefix
 
 from yaml import FullLoader
 
@@ -33,8 +34,8 @@ import cv2
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset_root', type=str, default = '/media/q/SSD2T/1linux/Linemod3_dataset/Linemod_preprocessed', help='dataset root dir')
-parser.add_argument('--model', type=str, default = '/media/q/SSD2T/1linux/Linemod3_trained_mod/pose_model_current.pth',  help='resume PoseNet model')
-parser.add_argument('--refine_model', type=str, default = '/media/q/SSD2T/1linux/Linemod3_trained_mod/pose_refine_model_407_0.006167699663480903.pth',  help='resume PoseRefineNet model')
+parser.add_argument('--model', type=str, default = '/media/q/SSD2T/1linux/Linemod3_trained_mod/pose_model_1_19.336531077718014.pth',  help='resume PoseNet model')
+parser.add_argument('--refine_model', type=str, default = ' ',  help='resume PoseRefineNet model')
 opt = parser.parse_args()
 
 
@@ -59,10 +60,13 @@ objlist = [2,3,10]
 num_points = 700
 iteration =4
 bs = 1
+
+
 dataset_config_dir = '/media/q/SSD2T/1linux/Linemod3_dataset/dataset_config'
 output_result_dir = '/media/q/SSD2T/1linux/Linemod3_eval'
 knn = KNearestNeighbor(1)
 
+# 网络和模型加载
 estimator = PoseNet(num_points = num_points, num_obj = num_objects)
 estimator.cuda()
 refiner = PoseRefineNet(num_points = num_points, num_obj = num_objects)
@@ -71,14 +75,22 @@ estimator.load_state_dict(torch.load(opt.model), strict=True)
 refiner.load_state_dict(torch.load(opt.refine_model), strict=True)
 estimator.eval()
 refiner.eval()
-print("Estimator Params:", next(estimator.parameters()).sum().item())
-print("Refiner Params:", next(refiner.parameters()).sum().item())
+# Estimator 参数量
+estimator_params = sum(p.numel() for p in estimator.parameters() if p.requires_grad)
+print("Estimator Params:", estimator_params)
+
+# Refiner 参数量
+refiner_params = sum(p.numel() for p in refiner.parameters() if p.requires_grad)
+print("Refiner Params:", refiner_params)
 print(estimator)
-
-
-
+print(refiner)
+# 数据加载器和评估器
 testdataset = PoseDataset_linemod3('eval', num_points, False, opt.dataset_root, 0.0, True)
 testdataloader = torch.utils.data.DataLoader(testdataset, batch_size=1, shuffle=False, num_workers=10)
+
+# 推理过程和时间统计
+tot_elapsed_time = 0.0  # 有效推理所消耗的时间
+tot_valid_cnt = 0  # 有效的样本数
 
 sym_list = testdataset.get_sym_list()
 num_points_mesh = testdataset.get_num_points_mesh()
@@ -96,6 +108,7 @@ success_count = [0 for i in range(num_objects)]
 num_count = [0 for i in range(num_objects)]
 fw = open('{0}/eval_result_logs.txt'.format(output_result_dir), 'w')
 
+print('Start inference...')
 for i, data in enumerate(testdataloader, 0):
     points, choose, img, target, model_points, idx , ori_img = data
     if len(points.size()) == 2:
@@ -109,33 +122,34 @@ for i, data in enumerate(testdataloader, 0):
                                                      model_points.cuda(), \
                                                      idx.cuda(), \
                                                      ori_img.cuda()
-    if points.shape[0] == 3 and points.shape[1] != 3:
-        print("检测到 (3, N) 点云，自动转置")
-        points = points.T
+    # if points.shape[0] == 3 and points.shape[1] != 3:
+    #     print("检测到 (3, N) 点云，自动转置")
+    #     points = points.T
+    #
+    # if target.shape[0] == 3 and target.shape[1] != 3:
+    #     print("检测到 (3, N) 点云，自动转置")
+    #     target = target.T
+    #
+    # if model_points.shape[0] == 3 and model_points.shape[1] != 3:
+    #     print("检测到 (3, N) 点云，自动转置")
+    #     model_points = model_points.T
 
-    if target.shape[0] == 3 and target.shape[1] != 3:
-        print("检测到 (3, N) 点云，自动转置")
-        target = target.T
+    # --- 计时开始 ---
+    start = torch.cuda.Event(enable_timing=True)
+    end = torch.cuda.Event(enable_timing=True)
+    start.record()
 
-    if model_points.shape[0] == 3 and model_points.shape[1] != 3:
-        print("检测到 (3, N) 点云，自动转置")
-        model_points = model_points.T
-
-
-
-
-
-
+    # 第一步：PoseNet 推理（estimator）
     pred_r, pred_t, pred_c, emb = estimator(img, points, choose, idx)
     pred_r = pred_r / torch.norm(pred_r, dim=2).view(1, num_points, 1) # 对 pred_r 在第 2 维上计算 L2 范数，并将其归一化，确保旋转表示保持单位长度，
     pred_c = pred_c.view(bs, num_points)  # 将置信度 pred_c 重塑为形状为 (bs, num_points) 的二维张量
     how_max, which_max = torch.max(pred_c, 1) # 找出每个批次中每个样本的最大置信度值（how_max）及其对应的索引（which_max）
     pred_t = pred_t.view(bs * num_points, 1, 3) # 将平移预测 pred_t 重塑为形状为 (bs * num_points, 1, 3) 的张量
 
+    # 第二步：refiner 迭代细化
     my_r = pred_r[0][which_max[0]].view(-1).cpu().data.numpy() # 展平
     my_t = (points.view(bs * num_points, 1, 3) + pred_t)[which_max[0]].view(-1).cpu().data.numpy() # 展平
     my_pred = np.append(my_r, my_t) # 组合
-
     for ite in range(0, iteration):
         T = torch.from_numpy(my_t.astype(np.float32)).cuda().view(1, 3).repeat(num_points,1).contiguous().view(1,num_points,3) # 平移矩阵移动到gpu
         my_mat = quaternion_matrix(my_r) # 旋转四元数转矩阵
@@ -163,6 +177,7 @@ for i, data in enumerate(testdataloader, 0):
 
     # Here 'my_pred' is the final pose estimation result after refinement ('my_r': quaternion, 'my_t': translation)
 
+    # 第三步：后处理（刚体变换、计算 dis 等）
     model_points = model_points[0].cpu().detach().numpy() # 从 PyTorch 张量转换为 NumPy 数组
     my_r = quaternion_matrix(my_r)[:3, :3] # 将四元数 my_r 转换为旋转矩阵，并提取出旋转矩阵的前三行前三列
     pred = np.dot(model_points, my_r.T) + my_t
@@ -194,6 +209,16 @@ for i, data in enumerate(testdataloader, 0):
         print('No.{0} NOT Pass! Distance: {1}'.format(i, dis))
         fw.write('No.{0} NOT Pass! Distance: {1}\n'.format(i, dis))
     num_count[idx[0].item()] += 1
+
+    # --- 计时结束 ---
+    end.record()
+    torch.cuda.synchronize()  # 确保所有 GPU 操作完成
+    elapsed_time = start.elapsed_time(end)  # 毫秒
+
+
+    # 打印或记录这一样本的耗时
+    print(f'No.{i} GPU time: {elapsed_time:.2f} ms, Distance: {dis}')
+    fw.write(f'No.{i} GPU time: {elapsed_time:.2f} ms, Distance: {dis}\n')
 
     # ###############################################################################################
     # #                                              可视化                                      #####
@@ -251,6 +276,41 @@ for i, data in enumerate(testdataloader, 0):
     #
     # plt.imsave(save_path, img_draw)
     # print(f"图像已保存至: {save_path}")
+    tot_elapsed_time += elapsed_time
+    tot_valid_cnt += 1
+
+    ###########################################################
+    # from torchviz import make_dot
+    import datetime
+    # 生成计算图（显示中间变量和梯度）
+    # dot = make_dot(
+    #     (pred_r, pred_t, pred_c, emb),
+    #     params=dict(estimator.named_parameters()),
+    #     show_attrs=True,  # 展示每个 Tensor 的属性
+    #     show_saved=True  # 展示保存的中间梯度
+    # )
+    # dot = make_dot(pred_r, params=dict(estimator.named_parameters()))
+    # # 获取时间戳
+    # timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    #
+    # # 文件名
+    # filename = f"{prefix}_{timestamp}"
+    #
+    # # 保存 PNG（也可以改成 pdf/svg）
+    # dot.render(filename, format="png", cleanup=True)
+    #
+    # print(f"✅ 模型计算图已保存: {filename}.png")
+    ###########################################################
+
+    # from torchinfo import summary
+    #
+    # # 模型结构概览
+    # summary(estimator, input_size=[(1, 3, 1000), (1, 32, 1000)])
+    # # (batch, channel, num_points)
+
+# 计算并打印 FPS（每秒帧数）
+print('Average FPS:', 1000 / (tot_elapsed_time / tot_valid_cnt))
+# evaluator.summarize()
 
 for i in range(num_objects):
     print('Object {0} success rate: {1}'.format(objlist[i], float(success_count[i]) / num_count[i]))

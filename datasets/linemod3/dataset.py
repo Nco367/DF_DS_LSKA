@@ -81,12 +81,12 @@ class PoseDataset(data.Dataset):
             self.meta[item] = {int(k): v for k, v in meta.items()} # 将字典的犍（帧编号）改为整数，而不是字符串
             self.pt[item] = ply_vtx('{0}/models/obj_{1}.ply'.format(self.root, '%06d' % item))
 
-            print("Loaded meta for obj", item)
+            # print("Loaded meta for obj", item)
             # print("Sample keys:", self.meta[item].keys())
             # print("Object {0} buffer loaded".format(item))
             # print("物体 {0} 的点云形状: {1}".format(item, self.pt[item].shape))
-            print("物体 {0} 的前 10 个点云坐标:".format(item))
-            print(self.pt[item][:10])
+            # print("物体 {0} 的前 10 个点云坐标:".format(item))
+            # print(self.pt[item][:10])
 
         self.length = len(self.list_rgb) # 视频帧长度
 
@@ -106,7 +106,7 @@ class PoseDataset(data.Dataset):
 
         self.num = num #
         self.add_noise = add_noise #
-        self.trancolor = transforms.ColorJitter(0.2, 0.2, 0.2, 0.05) #调用 transform(image) 时，图像的亮度、对比度、饱和度和色调都会被随机调整
+        self.trancolor = transforms.ColorJitter(0.2, 0.2, 0.2, 0) #调用 transform(image) 时，图像的亮度、对比度、饱和度和色调都会被随机调整
         self.norm = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) # 会进一步处理图像，调整每个通道的均值和标准差，使其符合标准正态分布
         self.border_list =[-1, 40, 80, 120, 160, 200, 240, 280, 320, 360, 400, 440, 480, 520, 560, 600, 640, 680, 720, 760, 800, 840, 880, 920, 960, 1000, 1040, 1080, 1120, 1160, 1200, 1240, 1280, 1320, 1360, 1400, 1440,1480]
         self.num_pt_mesh_large = 700
@@ -115,6 +115,8 @@ class PoseDataset(data.Dataset):
 
 
     def __getitem__(self, index):
+        EVALUATION_RESULT='/media/q/SSD2T/1linux/Linemod3_eval/dataset_vis/'
+        os.makedirs(EVALUATION_RESULT, exist_ok=True)
 
         img = Image.open(self.list_rgb[index])
         ori_img = np.array(img)
@@ -156,8 +158,8 @@ class PoseDataset(data.Dataset):
             # rmin, rmax, cmin, cmax = get_bbox(mask_to_bbox(mask_label)) # 自制数据集：开启
         img_masked = img_masked[:, rmin:rmax, cmin:cmax]
 
-        # p_img = np.transpose(img_masked, (1, 2, 0))
-        # plt.imsave('evaluation_result/{0}_input.png'.format(index), p_img)
+        p_img = np.transpose(img_masked, (1, 2, 0))
+        plt.imsave(f'{EVALUATION_RESULT}/{index}_input.png', p_img)
 
         target_r = np.resize(np.array(meta['cam_R_m2c']), (3, 3))
         target_t = np.array(meta['cam_t_m2c'])
@@ -193,21 +195,20 @@ class PoseDataset(data.Dataset):
         if self.add_noise:
             cloud = np.add(cloud, add_t) # 添加噪声
 
-        # fw = open('evaluation_result/{0}_cld.xyz'.format(index), 'w')
-        # for it in cloud:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
-        # fw.close()
+        fw = open('{}/{}_cld.xyz'.format(EVALUATION_RESULT, index), 'w')
+        for it in cloud:
+           fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        fw.close()
 
         # ——————————————————————————————————————————————————model_points——————————————————————————————————————————————————————
         model_points = self.pt[obj]/ 1000.0
         dellist = [j for j in range(0, len(model_points))]
         dellist = random.sample(dellist, len(model_points) - self.num_pt_mesh_small)
         model_points = np.delete(model_points, dellist, axis=0)
-
-        # fw = open('evaluation_result/{0}_model_points.xyz'.format(index), 'w')
-        # for it in model_points:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
-        # fw.close()
+        fw = open('{}/{}_model_points.xyz'.format(EVALUATION_RESULT,index), 'w')
+        for it in model_points:
+           fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        fw.close()
 
         # ——————————————————————————————————————————————————target——————————————————————————————————————————————————————
         target = np.dot(model_points, target_r.T)
@@ -218,10 +219,10 @@ class PoseDataset(data.Dataset):
             target = np.add(target, target_t / 1000.0)
             out_t = target_t / 1000.0
 
-        # fw = open('evaluation_result/{0}_tar.xyz'.format(index), 'w')
-        # for it in target:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
-        # fw.close()
+        fw = open('{}/{}_tar.xyz'.format(EVALUATION_RESULT,index), 'w')
+        for it in target:
+           fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        fw.close()
 
         return torch.from_numpy(cloud.astype(np.float32)), \
                torch.LongTensor(choose.astype(np.int32)), \

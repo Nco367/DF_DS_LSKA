@@ -11,11 +11,13 @@ import random
 import time
 import numpy as np
 import torch
+from torch import utils
+from torch import manual_seed, load
 import torch.nn as nn
 import torch.nn.parallel
 import torch.backends.cudnn as cudnn
 import torch.optim as optim
-import torch.utils.data
+import torch.utils.data as data
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
@@ -25,7 +27,7 @@ from datasets.linemod3.dataset import PoseDataset as PoseDataset_linemod3
 from lib.network import PoseNet, PoseRefineNet
 from lib.loss import Loss
 from lib.loss_refiner import Loss_refine
-from lib.utils import setup_logger
+from lib.utils.utils import setup_logger
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default = 'linemod', help='ycb or linemod')
@@ -52,7 +54,7 @@ def main():
 # 随机数设置 ?
     opt.manualSeed = random.randint(1, 10000)
     random.seed(opt.manualSeed) # 设置 random 模块的随机数生成器种子为 opt.manualSeed
-    torch.manual_seed(opt.manualSeed) #  设置 PyTorch 中的随机数生成器的种子
+    manual_seed(opt.manualSeed) #  设置 PyTorch 中的随机数生成器的种子
 # 数据集参数设置
     if opt.dataset == 'ycb':
         opt.num_objects = 21 #number of object classes in the dataset
@@ -65,7 +67,7 @@ def main():
         opt.num_points = 700
         opt.outf = '/media/q/SSD2T/1linux/Linemod3_trained_mod' # 设置训练过程中保存模型的文件夹路径
         opt.log_dir = '/media/q/SSD2T/1linux/Linemod3_log' # 设置训练过程中日志保存的目录
-        opt.repeat_epoch = 6  # 设置每个物体训练的重复轮数为 20
+        opt.repeat_epoch = 1 # 设置每个物体训练的重复轮数为 20
     else:
         print('Unknown dataset')
         return
@@ -81,9 +83,9 @@ def main():
 
 # 网络间断点设置
     if opt.resume_posenet != '':
-        estimator.load_state_dict(torch.load('{0}/{1}'.format(opt.outf, opt.resume_posenet)))
+        estimator.load_state_dict(load('{0}/{1}'.format(opt.outf, opt.resume_posenet)))
     if opt.resume_refinenet != '':
-        refiner.load_state_dict(torch.load('{0}/{1}'.format(opt.outf, opt.resume_refinenet)))
+        refiner.load_state_dict(load('{0}/{1}'.format(opt.outf, opt.resume_refinenet)))
         opt.refine_start = True
         opt.decay_start = True
         opt.lr *= opt.lr_rate
@@ -100,12 +102,12 @@ def main():
         dataset = PoseDataset_ycb('train', opt.num_points, True, opt.dataset_root, opt.noise_trans, opt.refine_start)
     elif opt.dataset == 'linemod':
         dataset = PoseDataset_linemod3('train', opt.num_points, True, opt.dataset_root, opt.noise_trans, opt.refine_start)
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=opt.workers)
+    dataloader = utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=opt.workers)
     if opt.dataset == 'ycb':
         test_dataset = PoseDataset_ycb('test', opt.num_points, False, opt.dataset_root, 0.0, opt.refine_start)
     elif opt.dataset == 'linemod':
         test_dataset = PoseDataset_linemod3('test', opt.num_points, False, opt.dataset_root, 0.0, opt.refine_start)
-    testdataloader = torch.utils.data.DataLoader(test_dataset, batch_size=1, shuffle=False, num_workers=opt.workers)
+    testdataloader = utils.data.DataLoader(test_dataset, batch_size=1, shuffle=False, num_workers=opt.workers)
 
 # 对称信息获取
     opt.sym_list = dataset.get_sym_list()
@@ -118,18 +120,21 @@ def main():
     criterion_refine = Loss_refine(opt.num_points_mesh, opt.sym_list)
 
 # 测试设置
-    best_test = np.Inf
+    best_test = np.inf
 
-# 清空日志
-    if opt.start_epoch == 1:
-        for log in os.listdir(opt.log_dir):
-            os.remove(os.path.join(opt.log_dir, log))
+    # 清空日志
+    # 创建带时间戳的日志目录
     st_time = time.time()
+    time_str = time.strftime("%Y%m%d_%H%M%S", time.localtime(st_time))
+    log_dir = os.path.join(opt.log_dir, time_str)
 
+    # 如果目录不存在，就创建
+    os.makedirs(log_dir, exist_ok=True)
+    print(f"本次训练日志保存到: {log_dir}")
 
     for epoch in range(opt.start_epoch, opt.nepoch):
         # 日志
-        logger = setup_logger('epoch%d' % epoch, os.path.join(opt.log_dir, 'epoch_%d_log.txt' % epoch))
+        logger = setup_logger('epoch%d' % epoch, os.path.join(log_dir, 'epoch_%d_log.txt' % epoch))
         logger.info('Train time {0}'.format(time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - st_time)) + ', ' + 'Training started'))
         # train的flag
         train_count = 0
@@ -142,7 +147,13 @@ def main():
         else:
             estimator.train()
         optimizer.zero_grad() # 清除上一轮计算的梯度
+        # Estimator 参数量
+        estimator_params = sum(p.numel() for p in estimator.parameters() if p.requires_grad)
+        print("Estimator Params:", estimator_params)
 
+        # Refiner 参数量
+        refiner_params = sum(p.numel() for p in refiner.parameters() if p.requires_grad)
+        print("Refiner Params:", refiner_params)
         # 重复训练轮次
         for rep in range(opt.repeat_epoch):
             for i, data in enumerate(dataloader, 0):
@@ -159,14 +170,10 @@ def main():
                 # target：目标的 3D 点云坐标，经过变换后的物体模型点云数据。
                 # model_points：物体模型的 3D 点云数据。
                 # idx：物体的索引，通常是一个整数，表示该样本所属的物体类别。
-
                 # ——————————————————————————————————————位姿估计——————————————————————————————————————————
                 pred_r, pred_t, pred_c, emb = estimator(img, points, choose, idx)
-
                 # ——————————————————————损失函数——————————————————————————
                 loss, dis, new_points, new_target = criterion(pred_r, pred_t, pred_c, target, model_points, idx, points, opt.w,opt.refine_start, opt.num_points_mesh, opt.sym_list)
-
-
                 #——————————————————————————优化——————————————————————————
                 if opt.refine_start:
                     for ite in range(0, opt.iteration):
@@ -183,24 +190,19 @@ def main():
                 train_dis_avg += dis.item()
                 train_count += 1
 
-
                 if train_count % opt.batch_size == 0:
                     logger.info('Train time {0} Epoch {1} Batch {2} Frame {3} Avg_dis:{4}'.format(time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - st_time)), epoch, int(train_count / opt.batch_size), train_count, train_dis_avg / opt.batch_size))
                     optimizer.step()
                     optimizer.zero_grad() # 清除上一轮计算的梯度
                     train_dis_avg = 0
 
-
                 if train_count != 0 and train_count % 1000 == 0:
                     if opt.refine_start:
                         torch.save(refiner.state_dict(), '{0}/pose_refine_model_current.pth'.format(opt.outf))
                     else:
                         torch.save(estimator.state_dict(), '{0}/pose_model_current.pth'.format(opt.outf))
-
-
         print('>>>>>>>>----------epoch {0} train finish---------<<<<<<<<'.format(epoch))
-
-        logger = setup_logger('epoch%d_test' % epoch, os.path.join(opt.log_dir, 'epoch_%d_test_log.txt' % epoch))
+        logger = setup_logger('epoch%d_test' % epoch, os.path.join(log_dir, 'epoch_%d_test_log.txt' % epoch))
         logger.info('Test time {0}'.format(time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - st_time)) + ', ' + 'Testing started'))
         test_dis = 0.0
         test_count = 0
@@ -224,8 +226,8 @@ def main():
                     dis, new_points, new_target = criterion_refine(pred_r, pred_t, new_target, model_points, idx, new_points)
 
             test_dis += dis.item()
+            dis=dis/1000
             logger.info('Test time {0} Test Frame No.{1} dis:{2}'.format(time.strftime("%Hh %Mm %Ss", time.gmtime(time.time() - st_time)), test_count, dis))
-
             test_count += 1
 
         test_dis = test_dis / test_count

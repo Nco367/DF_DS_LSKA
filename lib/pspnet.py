@@ -299,7 +299,7 @@ class PSPNet(nn.Module):
         self.feats = getattr(extractors, backend)(pretrained) # resnet**  动态加载一个主干网络
         # self.lska = LSKA(psp_size,7) # ——————1 主干网络后添加LSKA、使用 LSKA 模块，处理主干提取的特征图
         self.psp = PSPModule(psp_size, 1024, sizes) # 调用金字塔池化模块（PSPModule）进行多尺度上下文融合
-        # self.lska = LSKA(1024,53) # ——————2 PSP后添加LSKA  #_______————————————————————————————————————————————————————添加
+        self.lska = LSKA(1024,53) # ——————2 PSP后添加LSKA  #_______————————————————————————————————————————————————————添加
         self.drop_1 = nn.Dropout2d(p=0.3) # 应用 Dropout 减少过拟合风险
 
         self.up_1 = PSPUpsample(1024, 256)
@@ -309,7 +309,7 @@ class PSPNet(nn.Module):
         self.up_3 = PSPUpsample(64, 64)
 
         self.drop_2 = nn.Dropout2d(p=0.15)
-        # self.lska_final = LSKA(64,53) # #_______————————————————————————————————————————————————————添加
+        self.lska_final = LSKA(64,53) # #_______————————————————————————————————————————————————————添加
 
         self.final = nn.Sequential(
             nn.Conv2d(64, 32, kernel_size=1),
@@ -326,7 +326,7 @@ class PSPNet(nn.Module):
         f, class_f = self.feats(x)  # 调用主干特征提取器
         # f = self.lska(f) # ——————1 对主干网络提取的特征图 f 进行局部自适应特征增强
         p = self.psp(f) # 调用 Pyramid Pooling 模块（PSPModule）进行多尺度特征融合
-        # p = self.lska(p) #——————2 #_______————————————————————————————————————————————————————添加
+        p = self.lska(p) #——————2 #_______————————————————————————————————————————————————————添加
         p = self.drop_1(p) # 用于在训练阶段随机丢弃输入特征图中的某些激活值
 
         p = self.up_1(p)
@@ -338,6 +338,6 @@ class PSPNet(nn.Module):
         p = self.drop_2(p)
 
         p = self.up_3(p)
-        # p = self.lska_final(p)# ————4 最终卷积层 #_______————————————————————————————————————————————————————添加
+        p = self.lska_final(p)# ————4 最终卷积层 #_______————————————————————————————————————————————————————添加
         
         return self.final(p)

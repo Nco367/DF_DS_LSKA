@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f46f0bc4-3c37-4618-9cc1-886ae78c29d9" name="更改" comment="1">
+      <change afterPath="$PROJECT_DIR$/1.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/pointnet2_utils/_ext.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/basic_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/basic_utils3.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/clr_callback.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/.gitigonre" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/_ext.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/fps_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/setup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/src/ext.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/src/farthest_point_sampling.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/gen_obj_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/persistent_dataloader.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/pytorch_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/sacred_trainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/seq.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/visdom_observer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/viz.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/evaluation_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/icp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/pvn3d_icp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/icp/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/depth_map_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/depth_map_utils_ycb.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/vis_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ycb_fill_depth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/meanshift_pytorch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/pvn3d_eval_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/batchnorm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/batchnorm_reimpl.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/comm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/replicate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/unittest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/run.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/F" beforeDir="false" afterPath="$PROJECT_DIR$/F" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasets/linemod3/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/linemod3/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/experiments/scripts/train_linemod3.sh" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/scripts/train_linemod3.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/extractors.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/extractors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/lib.linux-x86_64-cpython-39/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cpu/knn_cpu.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cpu/knn_cpu.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cuda/knn.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cuda/knn.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/vision.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/vision.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/dist/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/dist/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/knn_pytorch.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/knn/knn_pytorch/knn_pytorch.cpython-36m-x86_64-linux-gnu.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pspnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pspnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/eval_linemod3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/eval_linemod3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/train_linemod3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/train_linemod3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/torch" beforeDir="false" afterPath="$PROJECT_DIR$/lib/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vis.py" beforeDir="false" afterPath="$PROJECT_DIR$/vis.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Nco367&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:Nco367/DF_DS_LSKA.git&quot;,
+    &quot;accountId&quot;: &quot;45977fb2-003e-4e10-a903-c4cb3ce59d65&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2pkII5XVNlEVRQkMfbsP8MxmXHy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python 测试.Doctests (serialization 内).executor&quot;: &quot;Debug&quot;,
+    &quot;Python 测试.Doctests (transformations 内).executor&quot;: &quot;Run&quot;,
+    &quot;Python 测试.Python 测试 (__init__.py 内).executor&quot;: &quot;Run&quot;,
+    &quot;Python 测试.TestKNearestNeighbor 的 Python 测试.executor&quot;: &quot;Run&quot;,
+    &quot;Python 测试.TestKNearestNeighbor.test_forward 的 Python 测试.executor&quot;: &quot;Run&quot;,
+    &quot;Python.LFA.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dataset_demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.demo_linemod2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.eval_linemod.executor&quot;: &quot;Run&quot;,
+    &quot;Python.eval_linemod2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.eval_linemod3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.eval_linemod_plot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extractors.executor&quot;: &quot;Run&quot;,
+    &quot;Python.jiaoben.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.lab.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mask.executor&quot;: &quot;Run&quot;,
+    &quot;Python.network.executor&quot;: &quot;Run&quot;,
+    &quot;Python.recode_demo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.resnet18.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_monodepth.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_segmentation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tool.executor&quot;: &quot;Run&quot;,
+    &quot;Python.train.executor&quot;: &quot;Run&quot;,
+    &quot;Python.transformations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.use_seg.executor&quot;: &quot;Run&quot;,
+    &quot;Python.vis.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visualization.executor&quot;: &quot;Run&quot;,
+    &quot;Python.测试.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;/home/q/.local/share/JetBrains/PyCharmCE2024.2/Shell Script/shellcheck&quot;,
+    &quot;Shell Script.train_linemod3.sh.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/q/ku/DenseFusion-1/DenseFusion-1/lib/pointnet2_utils&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/pointnet2_utils" />
+      <recent name="$PROJECT_DIR$/lib/knn" />
+      <recent name="$PROJECT_DIR$/lib/knn/knn_pytorch" />
+      <recent name="$PROJECT_DIR$/lib/knn/dist/knn_pytorch" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/pointnet2_utils/11" />
+      <recent name="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-39/pointnet2_ops/11" />
+      <recent name="$PROJECT_DIR$/lib/utils" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.eval_linemod3">
+    <configuration name="eval_linemod3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DenseFusion-1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tools/eval_linemod3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="network" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DenseFusion-1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lib" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/network.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tool" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DenseFusion-1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tool.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python 测试 (__init__.py 内)" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="DenseFusion-1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lib/knn" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/lib/knn/__init__.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestKNearestNeighbor 的 Python 测试" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="DenseFusion-1" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lib/knn" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TestKNearestNeighbor&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.eval_linemod3" />
+        <item itemvalue="Python.network" />
+        <item itemvalue="Python 测试.Python 测试 (__init__.py 内)" />
+        <item itemvalue="Python 测试.TestKNearestNeighbor 的 Python 测试" />
+        <item itemvalue="Python.tool" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="f46f0bc4-3c37-4618-9cc1-886ae78c29d9" name="更改" comment="" />
+      <created>1733303563631</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733303563631</updated>
+    </task>
+    <task id="LOCAL-00001" summary="1">
+      <option name="closed" value="true" />
+      <created>1742639812860</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742639812860</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.m" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/vanilla_segmentation/loss.py</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ml-depth-pro-main/src/depth_pro/__init__.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

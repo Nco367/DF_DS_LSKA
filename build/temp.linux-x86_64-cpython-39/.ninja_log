@@ -1,0 +1,10 @@
+# ninja log v5
+0	9796	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/ball_query.o	feed2fa85c7e9450
+1	10071	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/sampling.o	b40f90a90e99b787
+0	10822	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/bindings.o	f0668a48495b560
+1	11341	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/sampling_gpu.o	e31748c5b2f4b857
+1	11366	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/interpolate_gpu.o	60e822dc2a60e34
+0	11532	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/ball_query_gpu.o	69f537a180c2dcf
+1	12180	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/group_points_gpu.o	c1893d65348d3510
+1	13501	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/group_points.o	c5f2fe90265367a
+1	13600	0	/home/q/ku/DenseFusion-1/DenseFusion-1/build/temp.linux-x86_64-cpython-39/_ext-src/src/interpolate.o	9603006ac759aec4

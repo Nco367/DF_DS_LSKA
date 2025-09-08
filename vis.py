@@ -51,7 +51,7 @@ def plot_loss(log_data):
 if __name__ == "__main__":
     log_folder = '/media/q/SSD2T/1linux/Linemod3_log'  # 设置你的日志文件夹路径
     start_epoch = 0  # 指定起始 epoch
-    end_epoch = 499 # 指定结束 epoch
+    end_epoch = 206# 指定结束 epoch
     log_data = read_log_files(log_folder, start_epoch, end_epoch)
 
     plot_loss(log_data)

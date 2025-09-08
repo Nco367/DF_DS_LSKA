@@ -94,8 +94,8 @@ class BasicBlock(nn.Module):
 
         # self.se1 = SEBlock(inplanes)# 通道注意力
         #self.cbam1 = CBAMBlock(inplanes)# SEBlock 的表现不如预期，且计算资源允许，再换这个；依赖空间信息
-        # self.conv1 = conv3x3(inplanes, planes, stride=stride, dilation=dilation)
 
+        # self.conv1 = conv3x3(inplanes, planes, stride=stride, dilation=dilation)
         self.conv1 = DepthwiseSeparableConv(in_channels=inplanes, out_channels=planes, # ————————————————————————————————添加
                         kernel_size=3, stride=stride, padding=1, bias=False)
 

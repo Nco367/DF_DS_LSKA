@@ -1,13 +1,21 @@
-def add_prefix_to_lines(input_file, output_file):
-    with open(input_file, 'r', encoding='utf-8') as infile:
-        lines = infile.readlines()
+import torch
+import torchvision
+import torch_scatter
+import torch_cluster
+import torch_sparse
 
-    with open(output_file, 'w', encoding='utf-8') as outfile:
-        for line in lines:
-            # 在每一行前加 "00"
-            outfile.write("00" + line)
+print("Torch version:", torch.__version__)
+print("CUDA available:", torch.cuda.is_available())
+print("CUDA version:", torch.version.cuda)
 
-# 使用示例
-input_file = '/media/q/HDD3T_1.5TB/2linux/datebase/DenseFusiondatasets/linemod2/Linemod_preprocessed/data/01/train.txt'  # 输入文件路径
-output_file = '/media/q/HDD3T_1.5TB/2linux/datebase/DenseFusiondatasets/linemod2/Linemod_preprocessed/data/01/train2.txt'  # 输出文件路径
-add_prefix_to_lines(input_file, output_file)
+# 测试 nms
+boxes = torch.rand(10, 4).cuda()
+scores = torch.rand(10).cuda()
+keep = torchvision.ops.nms(boxes, scores, 0.5)
+print("NMS result:", keep)
+
+# 测试 scatter
+src = torch.randn(10, 8).cuda()
+index = torch.randint(0, 5, (10,), dtype=torch.long).cuda()
+out = torch_scatter.scatter(src, index, dim=0, reduce="mean")
+print("Scatter output shape:", out.shape)
