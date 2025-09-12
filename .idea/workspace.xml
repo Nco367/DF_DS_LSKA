@@ -5,72 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f46f0bc4-3c37-4618-9cc1-886ae78c29d9" name="更改" comment="1">
-      <change afterPath="$PROJECT_DIR$/1.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/pointnet2_utils/_ext.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/basic_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/basic_utils3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/clr_callback.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/.gitigonre" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/_ext.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/fps_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/setup.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/src/ext.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/fps/src/farthest_point_sampling.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/dataset_tools/gen_obj_info.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/persistent_dataloader.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/pytorch_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/sacred_trainer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/seq.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/visdom_observer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/etw_pytorch_utils/viz.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/evaluation_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/icp.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/pvn3d_icp.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/icp/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/depth_map_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/depth_map_utils_ycb.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ip_basic/vis_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/ip_basic/ycb_fill_depth.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/meanshift_pytorch.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/pvn3d_eval_utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/batchnorm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/batchnorm_reimpl.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/comm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/replicate.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/sync_batchnorm/unittest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/run.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/utils/warmup_scheduler/scheduler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/F" beforeDir="false" afterPath="$PROJECT_DIR$/F" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasets/linemod3/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/datasets/linemod3/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/experiments/scripts/train_linemod3.sh" beforeDir="false" afterPath="$PROJECT_DIR$/experiments/scripts/train_linemod3.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/extractors.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/extractors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/lib.linux-x86_64-cpython-39/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cpu/knn_cpu.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cpu/knn_cpu.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cuda/knn.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cuda/knn.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/vision.o" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/vision.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/dist/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/dist/knn_pytorch/knn_pytorch.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/knn_pytorch.cpython-39-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/lib/knn/knn_pytorch.cpython-39-x86_64-linux-gnu.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/knn/knn_pytorch/knn_pytorch.cpython-36m-x86_64-linux-gnu.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DenseFusion-1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DenseFusion-1.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pspnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pspnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tool.py" beforeDir="false" afterPath="$PROJECT_DIR$/tool.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/eval_linemod3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/eval_linemod3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tools/train_linemod3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/train_linemod3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/torch" beforeDir="false" afterPath="$PROJECT_DIR$/lib/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vis.py" beforeDir="false" afterPath="$PROJECT_DIR$/vis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +89,7 @@
     &quot;SHELLCHECK.PATH&quot;: &quot;/home/q/.local/share/JetBrains/PyCharmCE2024.2/Shell Script/shellcheck&quot;,
     &quot;Shell Script.train_linemod3.sh.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/q/ku/DenseFusion-1/DenseFusion-1/lib/pointnet2_utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/q/SSD2T/1linux/ku_github/PVN3D-master&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -168,7 +107,7 @@
       <recent name="$PROJECT_DIR$/lib/utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.eval_linemod3">
+  <component name="RunManager" selected="Python.network">
     <configuration name="eval_linemod3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DenseFusion-1" />
       <option name="ENV_FILES" value="" />
@@ -267,8 +206,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.eval_linemod3" />
         <item itemvalue="Python.network" />
+        <item itemvalue="Python.eval_linemod3" />
         <item itemvalue="Python 测试.Python 测试 (__init__.py 内)" />
         <item itemvalue="Python 测试.TestKNearestNeighbor 的 Python 测试" />
         <item itemvalue="Python.tool" />

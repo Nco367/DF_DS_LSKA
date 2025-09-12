@@ -51,104 +51,106 @@ class ModifiedResnet(nn.Module): # 一个使用 ResNet18 架构的神经网络
         x = self.model(x)
         return x
 
-class Pointnet2MSG(nn.Module):
-    r"""
-        PointNet2 with multi-scale grouping
-        Semantic segmentation network that uses feature propogation layers
 
-        Parameters
-        ----------
-        input_channels: int = 6
-            Number of input channels in the feature descriptor for each point.  If the point cloud is Nx9, this
-            value should be 6 as in an Nx9 point cloud, 3 of the channels are xyz, and 6 are feature descriptors
-        use_xyz: bool = True
-            Whether or not to use the xyz position of a point as a feature
-    """
+class ResBlock(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(ResBlock, self).__init__()
+        self.conv1 = nn.Conv1d(in_channels, out_channels, kernel_size=1, bias=False)
+        self.bn1 = nn.BatchNorm1d(out_channels)
+        self.bn2 = nn.BatchNorm1d(out_channels)
+        self.shortcut = nn.Conv1d(in_channels, out_channels, 1) if in_channels != out_channels else nn.Identity()
 
-    def __init__(
-        self, input_channels=0, use_xyz=True
-    ):
-        super(Pointnet2MSG, self).__init__()
+        self.conv2 = nn.Conv1d(out_channels, out_channels, kernel_size=1, bias=False)
+        self.bn3 = nn.BatchNorm1d(out_channels)
+        self.bn4 = nn.BatchNorm1d(out_channels)
 
-        self.SA_modules = nn.ModuleList()
-        c_in = input_channels
-        self.SA_modules.append(
-            PointnetSAModuleMSG(
-                npoint=700,
-                radii=[0.0175, 0.025],
-                nsamples=[16, 32],
-                mlps=[[c_in, 16, 16, 32], [c_in, 32, 32, 64]],
-                use_xyz=use_xyz,
-            )
+        self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        print("输入:", x.shape)
+
+        identity = self.shortcut(x)
+        print("shortcut(identity):", identity.shape)
+
+        out = self.conv1(x)
+        print("conv1:", out.shape)
+
+        out = self.bn1(out)
+        print("bn1:", out.shape)
+
+        out = out + self.bn2(identity)
+        print("bn1 + bn2(identity):", out.shape)
+
+        out = self.relu(out)
+        print("ReLU1:", out.shape)
+
+        identity2 = out
+        print("identity2:", identity2.shape)
+
+        out = self.conv2(out)
+        print("conv2:", out.shape)
+
+        out = self.bn3(out)
+        print("bn3:", out.shape)
+
+        out = out + self.bn4(identity2)
+        print("bn3 + bn4(identity2):", out.shape)
+
+        out = identity2 + out
+        print("残差连接(identity2 + out):", out.shape)
+
+        out = self.relu(out)
+        print("ReLU2:", out.shape)
+
+        return out
+
+
+
+class ResPointNet(nn.Module):
+    def __init__(self, in_channels=3, feature_dim=256):
+        super(ResPointNet, self).__init__()
+        # 两个 Rep-Res
+        self.rep1 = ResBlock(in_channels, 64)
+        self.rep2 = ResBlock(64, 128)
+
+        # Conv + BN + ReLU
+        self.conv1 = nn.Sequential(
+            nn.Conv1d(128, 256, kernel_size=1, bias=False),
+            nn.BatchNorm1d(256),
+            nn.ReLU(inplace=True)
         )
-        c_out_0 = 32 + 64
 
-        c_in = c_out_0
-        self.SA_modules.append(
-            PointnetSAModuleMSG(
-                npoint=512,
-                radii=[0.025, 0.05],
-                nsamples=[16, 32],
-                mlps=[[c_in, 64, 64, 128], [c_in, 64, 96, 128]],
-                use_xyz=use_xyz,
-            )
+        # Conv + BN
+        self.conv2 = nn.Sequential(
+            nn.Conv1d(256, feature_dim, kernel_size=1, bias=False),
+            nn.BatchNorm1d(feature_dim)
         )
-        c_out_1 = 128 + 128
 
-        c_in = c_out_1
-        self.SA_modules.append(
-            PointnetSAModuleMSG(
-                npoint=256,
-                radii=[0.05, 0.1],
-                nsamples=[16, 32],
-                mlps=[[c_in, 128, 196, 256], [c_in, 128, 196, 256]],
-                use_xyz=use_xyz,
-            )
-        )
-        c_out_2 = 256 + 256
+        # 全局池化
+        self.pool = nn.AdaptiveAvgPool1d(1)
 
-        c_in = c_out_2
-        self.SA_modules.append(
-            PointnetSAModuleMSG(
-                npoint=128,
-                radii=[0.1, 0.2],
-                nsamples=[16, 32],
-                mlps=[[c_in, 256, 256, 512], [c_in, 256, 384, 512]],
-                use_xyz=use_xyz,
-            )
-        )
-        c_out_3 = 512 + 512
+    def forward(self, x):
+        # x: (B, in_channels, N)
+        out = self.rep1(x)
+        out = self.rep2(out)
+        out = self.conv1(out)
+        out = self.conv2(out)
+        ap_out = self.pool(out)  # (B, feature_dim, 1)
+        out = ap_out + out
+        out = out.squeeze(-1)  # 输出特征: torch.Size([1, 256, 1024])
+        return out
 
-        self.FP_modules = nn.ModuleList()
-        self.FP_modules.append(PointnetFPModule(mlp=[256 + input_channels, 128, 128]))
-        self.FP_modules.append(PointnetFPModule(mlp=[512 + c_out_0, 256, 256]))
-        self.FP_modules.append(PointnetFPModule(mlp=[512 + c_out_1, 512, 512]))
-        self.FP_modules.append(PointnetFPModule(mlp=[c_out_3 + c_out_2, 512, 512]))
 
-    def _break_up_pc(self, pc):
-        xyz = pc[..., 0:3].contiguous()
-        features = pc[..., 3:].transpose(1, 2).contiguous() if pc.size(-1) > 3 else None
+# 测试
+if __name__ == "__main__":
+    x = torch.randn(8, 3, 1024)  # (batch, xyz, 点数)
+    model = ResPointNet(in_channels=3, feature_dim=256)
+    y = model(x)
+    print("输入:", x.shape)
+    print("输出特征:", y.shape)
 
-        return xyz, features
 
-    def forward(self, pointcloud):
-        # type: (Pointnet2MSG, torch.cuda.FloatTensor) -> pt_utils.Seq
 
-        _, N, _ = pointcloud.size()
-        xyz, features = self._break_up_pc(pointcloud)
-
-        l_xyz, l_features = [xyz], [features]
-        for i in range(len(self.SA_modules)):
-            li_xyz, li_features = self.SA_modules[i](l_xyz[i], l_features[i])
-            l_xyz.append(li_xyz)
-            l_features.append(li_features)
-
-        for i in range(-1, -(len(self.FP_modules) + 1), -1):
-            l_features[i - 1] = self.FP_modules[i](
-                l_xyz[i - 1], l_xyz[i], l_features[i - 1], l_features[i]
-            )
-
-        return l_features[0]
 
 class CrossAttention(nn.Module):
     def __init__(self, dim_pc, dim_img):
@@ -160,6 +162,10 @@ class CrossAttention(nn.Module):
 
     def forward(self, feat_pc, feat_img):
         # feat_pc: (B, N, C_pc), feat_img: (B, N, C_img)
+        # 支持输入 (B, C, N)，自动转成 (B, N, C)
+        # 如果输入是 (B, C, N)，转成 (B, N, C)
+        feat_pc = feat_pc.transpose(2,1).contiguous()
+        feat_img = feat_img.transpose(2, 1).contiguous()
         Q = self.q_pc(feat_pc)          # (B, N, C_pc)
         K = self.k_img(feat_img)        # (B, N, C_pc)
         V = self.v_img(feat_img)        # (B, N, C_pc)
@@ -174,10 +180,13 @@ class PoseNetFeat(nn.Module):
         super(PoseNetFeat, self).__init__()
 
         self.conv1 = torch.nn.Conv1d(3, 64, 1)
-        self.conv2 = torch.nn.Conv1d(128, 128, 1)
+        self.conv2 = torch.nn.Conv1d(64, 128, 1)
 
         self.e_conv1 = torch.nn.Conv1d(32, 64, 1)
         self.e_conv2 = torch.nn.Conv1d(64, 128, 1)
+        # 这里实例化 CrossAttention
+        self.cross1 = CrossAttention(dim_pc=64, dim_img=64)
+        self.cross2 = CrossAttention(dim_pc=128, dim_img=128)
 
         self.conv5 = torch.nn.Conv1d(256, 512, 1)
         self.conv6 = torch.nn.Conv1d(512, 1024, 1)
@@ -186,27 +195,26 @@ class PoseNetFeat(nn.Module):
         self.num_points = num_points
 
     def forward(self, x, emb):
+        # print("输入 x:", x.shape)  # (B, 3, N) 初始点云特征
+        # print("输入 emb:", emb.shape)  # (B, 3, N) 或其他特征
 
-        # x = F.relu(self.conv1(x))
+        x = F.relu(self.conv1(x))
         emb = F.relu(self.e_conv1(emb))
-        pointfeat_1 = torch.cat((x , emb), dim=1)
+        pointfeat_1 = torch.cat([x, emb], dim=1) # 64 + 64 ([1, 128, 700])
 
         x = F.relu(self.conv2(x))
         emb = F.relu(self.e_conv2(emb))
-        pointfeat_2 = torch.cat((x , emb), dim=1)
+        pointfeat_2 = torch.cat([x , emb ], dim=1)  # 128 + 128 ([1, 256, 700])
 
         x = F.relu(self.conv5(pointfeat_2))
+
         x = F.relu(self.conv6(x))
-
         ap_x = self.ap1(x)
-
         ap_x = ap_x.view(-1, 1024, 1).repeat(1, 1, self.num_points)
-
-        pointfeat_1 = CrossAttention(pointfeat_1, emb)
-        pointfeat_2 = CrossAttention(pointfeat_2, emb)
+        # print("ap_x", ap_x.shape)
         fused_feat = torch.cat([pointfeat_1, pointfeat_2, ap_x], 1)
 
-        return fused_feat #128 + 256 + 1024
+        return fused_feat #128 + 256 + 1024  # 64 128 1024
 
 class PoseNet(nn.Module):
     def __init__(self, num_points, num_obj):
@@ -215,12 +223,12 @@ class PoseNet(nn.Module):
         self.num_obj = num_obj
 
         self.cnn = ModifiedResnet()
-        self.pointnet2 = Pointnet2MSG(input_channels=0,use_xyz=True)
+        self.cld_feat = ResPointNet()
         self.feat = PoseNetFeat(num_points)
 
-        self.conv1_r = torch.nn.Conv1d(1472, 640, 1)
-        self.conv1_t = torch.nn.Conv1d(1472, 640, 1)
-        self.conv1_c = torch.nn.Conv1d(1472, 640, 1)
+        self.conv1_r = torch.nn.Conv1d(1408, 640, 1)
+        self.conv1_t = torch.nn.Conv1d(1408, 640, 1)
+        self.conv1_c = torch.nn.Conv1d(1408, 640, 1)
 
         self.conv2_r = torch.nn.Conv1d(640, 256, 1)
         self.conv2_t = torch.nn.Conv1d(640, 256, 1)
@@ -246,12 +254,13 @@ class PoseNet(nn.Module):
         choose = choose.repeat(1, di, 1) # 是一个选择索引张量, 每个通道都会选择相同的索引
         emb = torch.gather(emb, 2, choose).contiguous() # 根据 choose 中的索引选取元素, 得到每个特征图上特定位置的值
 
+        x = x.transpose(1, 2).contiguous()  # (B, 3, N)
+        # x = self.pointnet2(x.transpose(1, 2).contiguous())  # 传入 PointNet2MSG 期望 (B, N, 3 + input_channels)
+        # # 如果返回是四维，可以 squeeze 掉最后一维：
+        # if x.dim() == 4:
+        #     x = x.squeeze(-1)
+        # x = self.cld_feat(x)
 
-        x = x.transpose(2, 1).contiguous()  # (B, 3, N)
-        x = self.pointnet2(x.transpose(1, 2).contiguous())  # 传入 PointNet2MSG 期望 (B, N, 3 + input_channels)
-        # 如果返回是四维，可以 squeeze 掉最后一维：
-        if x.dim() == 4:
-            x = x.squeeze(-1)
         ap_x = self.feat(x, emb) # 融合
         rx = F.relu(self.conv1_r(ap_x))
         tx = F.relu(self.conv1_t(ap_x))
@@ -357,18 +366,11 @@ class PoseRefineNet(nn.Module):
         out_tx = torch.index_select(tx[b], 0, obj[b])
 
         return out_rx, out_tx
-if __name__ == "__main__":
-    from torch.autograd import Variable
-    import numpy as np
-    import torch.optim as optim
 
-    B = 2
-    N = 32
-    inputs = torch.randn(B, N, 6).cuda()
-    labels = torch.from_numpy(np.random.randint(0, 3, size=B * N)).view(B, N).cuda()
-    model = Pointnet2MSG(3)
-    model.cuda()
-
-    optimizer = optim.Adam(model.parameters(), lr=1e-2)
-
-    print("Testing with xyz")
+#     # 测试模块
+# if __name__ == "__main__":
+#     x = torch.randn(8, 64, 1024)  # batch=8, 通道=64, 点数=1024
+#     model = RepResBlock(64, 128)
+#     y = model(x)
+#     print("输入维度:", x.shape)
+#     print("输出维度:", y.shape)
