@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f46f0bc4-3c37-4618-9cc1-886ae78c29d9" name="更改" comment="1">
-      <change beforePath="$PROJECT_DIR$/.idea/DenseFusion-1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DenseFusion-1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/train_linemod3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/train_linemod3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,48 +48,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python 测试.Doctests (serialization 内).executor&quot;: &quot;Debug&quot;,
-    &quot;Python 测试.Doctests (transformations 内).executor&quot;: &quot;Run&quot;,
-    &quot;Python 测试.Python 测试 (__init__.py 内).executor&quot;: &quot;Run&quot;,
-    &quot;Python 测试.TestKNearestNeighbor 的 Python 测试.executor&quot;: &quot;Run&quot;,
-    &quot;Python 测试.TestKNearestNeighbor.test_forward 的 Python 测试.executor&quot;: &quot;Run&quot;,
-    &quot;Python.LFA.executor&quot;: &quot;Run&quot;,
-    &quot;Python.dataset_demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.demo_linemod2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eval_linemod.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eval_linemod2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eval_linemod3.executor&quot;: &quot;Run&quot;,
-    &quot;Python.eval_linemod_plot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.extractors.executor&quot;: &quot;Run&quot;,
-    &quot;Python.jiaoben.executor&quot;: &quot;Debug&quot;,
-    &quot;Python.lab.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mask.executor&quot;: &quot;Run&quot;,
-    &quot;Python.network.executor&quot;: &quot;Run&quot;,
-    &quot;Python.recode_demo.executor&quot;: &quot;Run&quot;,
-    &quot;Python.resnet18.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run_monodepth.executor&quot;: &quot;Run&quot;,
-    &quot;Python.run_segmentation.executor&quot;: &quot;Run&quot;,
-    &quot;Python.tool.executor&quot;: &quot;Run&quot;,
-    &quot;Python.train.executor&quot;: &quot;Run&quot;,
-    &quot;Python.transformations.executor&quot;: &quot;Run&quot;,
-    &quot;Python.use_seg.executor&quot;: &quot;Run&quot;,
-    &quot;Python.vis.executor&quot;: &quot;Run&quot;,
-    &quot;Python.visualization.executor&quot;: &quot;Run&quot;,
-    &quot;Python.测试.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHELLCHECK.PATH&quot;: &quot;/home/q/.local/share/JetBrains/PyCharmCE2024.2/Shell Script/shellcheck&quot;,
-    &quot;Shell Script.train_linemod3.sh.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/media/q/SSD2T/1linux/ku_github/PVN3D-master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python 测试.Doctests (serialization 内).executor": "Debug",
+    "Python 测试.Doctests (transformations 内).executor": "Run",
+    "Python 测试.Python 测试 (__init__.py 内).executor": "Run",
+    "Python 测试.TestKNearestNeighbor 的 Python 测试.executor": "Run",
+    "Python 测试.TestKNearestNeighbor.test_forward 的 Python 测试.executor": "Run",
+    "Python.LFA.executor": "Run",
+    "Python.dataset_demo.executor": "Run",
+    "Python.demo.executor": "Run",
+    "Python.demo_linemod2.executor": "Run",
+    "Python.eval_linemod.executor": "Run",
+    "Python.eval_linemod2.executor": "Run",
+    "Python.eval_linemod3.executor": "Run",
+    "Python.eval_linemod_plot.executor": "Run",
+    "Python.extractors.executor": "Run",
+    "Python.jiaoben.executor": "Debug",
+    "Python.lab.executor": "Run",
+    "Python.mask.executor": "Run",
+    "Python.network.executor": "Run",
+    "Python.recode_demo.executor": "Run",
+    "Python.resnet18.executor": "Run",
+    "Python.run.executor": "Run",
+    "Python.run_monodepth.executor": "Run",
+    "Python.run_segmentation.executor": "Run",
+    "Python.tool.executor": "Run",
+    "Python.train.executor": "Run",
+    "Python.transformations.executor": "Run",
+    "Python.use_seg.executor": "Run",
+    "Python.vis.executor": "Run",
+    "Python.visualization.executor": "Run",
+    "Python.测试.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHELLCHECK.PATH": "/home/q/.local/share/JetBrains/PyCharmCE2024.2/Shell Script/shellcheck",
+    "Shell Script.train_linemod3.sh.executor": "Run",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/media/q/SSD2T/1linux/ku_github/PVN3D-master",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/pointnet2_utils" />

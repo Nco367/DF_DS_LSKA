@@ -67,11 +67,7 @@ class ResBlock(nn.Module):
         self.relu = nn.ReLU(inplace=True)
 
     def forward(self, x):
-        print("输入:", x.shape)
-
         identity = self.shortcut(x)
-        print("shortcut(identity):", identity.shape)
-
         out = self.conv1(x)
         print("conv1:", out.shape)
 
@@ -132,48 +128,13 @@ class ResPointNet(nn.Module):
     def forward(self, x):
         # x: (B, in_channels, N)
         out = self.rep1(x)
-        out = self.rep2(out)
-        out = self.conv1(out)
+        out_128 = self.rep2(out)
+        out = self.conv1(out_128)
         out = self.conv2(out)
         ap_out = self.pool(out)  # (B, feature_dim, 1)
         out = ap_out + out
         out = out.squeeze(-1)  # 输出特征: torch.Size([1, 256, 1024])
-        return out
-
-
-# 测试
-if __name__ == "__main__":
-    x = torch.randn(8, 3, 1024)  # (batch, xyz, 点数)
-    model = ResPointNet(in_channels=3, feature_dim=256)
-    y = model(x)
-    print("输入:", x.shape)
-    print("输出特征:", y.shape)
-
-
-
-
-class CrossAttention(nn.Module):
-    def __init__(self, dim_pc, dim_img):
-        super().__init__()
-        self.q_pc = nn.Linear(dim_pc, dim_pc)
-        self.k_img = nn.Linear(dim_img, dim_pc)
-        self.v_img = nn.Linear(dim_img, dim_pc)
-        self.scale = dim_pc ** 0.5
-
-    def forward(self, feat_pc, feat_img):
-        # feat_pc: (B, N, C_pc), feat_img: (B, N, C_img)
-        # 支持输入 (B, C, N)，自动转成 (B, N, C)
-        # 如果输入是 (B, C, N)，转成 (B, N, C)
-        feat_pc = feat_pc.transpose(2,1).contiguous()
-        feat_img = feat_img.transpose(2, 1).contiguous()
-        Q = self.q_pc(feat_pc)          # (B, N, C_pc)
-        K = self.k_img(feat_img)        # (B, N, C_pc)
-        V = self.v_img(feat_img)        # (B, N, C_pc)
-
-        attn = torch.matmul(Q, K.transpose(1, 2)) / self.scale  # (B, N, N)
-        attn = F.softmax(attn, dim=-1)
-        out = torch.matmul(attn, V)      # (B, N, C_pc)
-        return feat_pc + out              # 残差连接
+        return out_128,out
 
 class PoseNetFeat(nn.Module):
     def __init__(self, num_points):
@@ -184,37 +145,33 @@ class PoseNetFeat(nn.Module):
 
         self.e_conv1 = torch.nn.Conv1d(32, 64, 1)
         self.e_conv2 = torch.nn.Conv1d(64, 128, 1)
-        # 这里实例化 CrossAttention
-        self.cross1 = CrossAttention(dim_pc=64, dim_img=64)
-        self.cross2 = CrossAttention(dim_pc=128, dim_img=128)
+        self.e_conv3 = torch.nn.Conv1d(128, 256, 1)
 
-        self.conv5 = torch.nn.Conv1d(256, 512, 1)
-        self.conv6 = torch.nn.Conv1d(512, 1024, 1)
-
+        self.conv5 = torch.nn.Conv1d(512, 1024, 1)
         self.ap1 = torch.nn.AvgPool1d(num_points)
+
         self.num_points = num_points
 
-    def forward(self, x, emb):
+    def forward(self, x_128, x, emb):
         # print("输入 x:", x.shape)  # (B, 3, N) 初始点云特征
         # print("输入 emb:", emb.shape)  # (B, 3, N) 或其他特征
 
-        x = F.relu(self.conv1(x))
+        x_128 = x_128
         emb = F.relu(self.e_conv1(emb))
-        pointfeat_1 = torch.cat([x, emb], dim=1) # 64 + 64 ([1, 128, 700])
-
-        x = F.relu(self.conv2(x))
         emb = F.relu(self.e_conv2(emb))
-        pointfeat_2 = torch.cat([x , emb ], dim=1)  # 128 + 128 ([1, 256, 700])
+        pointfeat_1 = torch.cat([x_128, emb], dim=1) # 128 + 128 ([1, 256, 700])
 
-        x = F.relu(self.conv5(pointfeat_2))
+        x = x
+        emb = F.relu(self.e_conv3(emb))
+        pointfeat_2 = torch.cat([x , emb ], dim=1)  # 256 + 256 ([1, 512, 700])
 
-        x = F.relu(self.conv6(x))
+        x = F.relu(self.conv5(pointfeat_2)) # 1024
+
         ap_x = self.ap1(x)
         ap_x = ap_x.view(-1, 1024, 1).repeat(1, 1, self.num_points)
-        # print("ap_x", ap_x.shape)
-        fused_feat = torch.cat([pointfeat_1, pointfeat_2, ap_x], 1)
+        fused_feat = torch.cat([pointfeat_1, pointfeat_2, ap_x], 1) # 256 + 512 + 1024
 
-        return fused_feat #128 + 256 + 1024  # 64 128 1024
+        return fused_feat
 
 class PoseNet(nn.Module):
     def __init__(self, num_points, num_obj):
@@ -226,9 +183,9 @@ class PoseNet(nn.Module):
         self.cld_feat = ResPointNet()
         self.feat = PoseNetFeat(num_points)
 
-        self.conv1_r = torch.nn.Conv1d(1408, 640, 1)
-        self.conv1_t = torch.nn.Conv1d(1408, 640, 1)
-        self.conv1_c = torch.nn.Conv1d(1408, 640, 1)
+        self.conv1_r = torch.nn.Conv1d(1792, 640, 1)
+        self.conv1_t = torch.nn.Conv1d(1792, 640, 1)
+        self.conv1_c = torch.nn.Conv1d(1792, 640, 1)
 
         self.conv2_r = torch.nn.Conv1d(640, 256, 1)
         self.conv2_t = torch.nn.Conv1d(640, 256, 1)
@@ -259,9 +216,9 @@ class PoseNet(nn.Module):
         # # 如果返回是四维，可以 squeeze 掉最后一维：
         # if x.dim() == 4:
         #     x = x.squeeze(-1)
-        # x = self.cld_feat(x)
+        x_128,x = self.cld_feat(x)
 
-        ap_x = self.feat(x, emb) # 融合
+        ap_x = self.feat(x_128, x, emb) # 融合
         rx = F.relu(self.conv1_r(ap_x))
         tx = F.relu(self.conv1_t(ap_x))
         cx = F.relu(self.conv1_c(ap_x))      
