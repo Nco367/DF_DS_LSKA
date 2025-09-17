@@ -1,18 +1,4 @@
 
-## Table of Content
-- [Overview](#overview)
-- [Requirements](#requirements)
-- [Code Structure](#code-structure)
-- [Datasets](#datasets)
-- [Training](#training)
-- [Evaluation](#evaluation)
-	- [Evaluation on YCB_Video Dataset](#evaluation-on-ycb_video-dataset)
-	- [Evaluation on LineMOD Dataset](#evaluation-on-linemod-dataset)
-- [Results](#results)
-- [Trained Checkpoints](#trained-checkpoints)
-- [Tips for your own dataset](#tips-for-your-own-dataset)
-- [Citations](#citations)
-- [License](#license)
 
 ## Requirements
 
