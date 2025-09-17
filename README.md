@@ -10,10 +10,6 @@
 * 1、LineMOD数据集
 * [LineMOD](http://campar.in.tum.de/Main/StefanHinterstoisser): Download the [preprocessed LineMOD dataset](https://drive.google.com/drive/folders/19ivHpaKm9dOrr12fzC8IDFczWRPFxho7) (including the testing results outputted by the trained vanilla SegNet used for evaluation).
 
-Download YCB_Video Dataset, preprocessed LineMOD dataset and the trained checkpoints (You can modify this script according to your needs.):
-```	
-./download.sh
-```
 * 2、发黑氧化工业零件数据集
 * 链接：https://pan.baidu.com/s/1KW2PGaKfC8BidK62rP6tHw?pwd=8888 提取码: 8888 
 
@@ -25,7 +21,7 @@ Download YCB_Video Dataset, preprocessed LineMOD dataset and the trained checkpo
 ./experiments/scripts/train_linemod1.sh
 ```
 * 发黑氧化工业零件数据集:
-	After you have downloaded and unzipped the Linemod_preprocessed.zip, please run:
+	After you have downloaded, please run:
 ```	
 ./experiments/scripts/train_linemod3.sh
 ```
