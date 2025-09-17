@@ -78,27 +78,5 @@ Just run:
 ```
 This script will test the models on the testing set of the LineMOD dataset with the masks outputted by the trained vanilla SegNet model. The result will be printed at the end of the execution and saved as a log in `experiments/eval_result/linemod/`.
 
-* LineMOD Dataset:
-
-Quantitative evaluation result with ADD metric for non-symmetry objects and ADD-S for symmetry objects(eggbox, glue) compared to other RGB-D methods. High performance RGB methods are also listed for reference.
-
-<p align="center">
-	<img src ="assets/result_linemod.png" width="500" />
-</p>
-
-The qualitative result on the YCB_Video dataset.
-
-<p align="center">
-	<img src ="assets/compare.png" width="600" />
-</p>
-
-## Trained Checkpoints
-You can download the trained DenseFusion and Iterative Refinement checkpoints of both datasets from [Link](https://drive.google.com/drive/folders/19ivHpaKm9dOrr12fzC8IDFczWRPFxho7).
-
-## Tips for your own dataset
-As you can see in this repo, the network code and the hyperparameters(lr and w) remain the same for both datasets. Which means you might not need to adjust too much on the network structure and hyperparameters when you use this repo on your own dataset. Please make sure that the distance metric in your dataset should be converted to meter, otherwise the hyperparameter w need to be adjusted. Several useful tools including [LabelFusion](https://github.com/RobotLocomotion/LabelFusion) and [sixd_toolkit](https://github.com/thodan/sixd_toolkit) has been tested to work well. (Please make sure to turn on the depth image collection in LabelFusion when you use it.)
-
-
-
 ## License
 Licensed under the [MIT License](LICENSE)
