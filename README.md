@@ -16,3 +16,30 @@ Download YCB_Video Dataset, preprocessed LineMOD dataset and the trained checkpo
 ```
 * 2、发黑氧化工业零件数据集
 * 链接：https://pan.baidu.com/s/1KW2PGaKfC8BidK62rP6tHw?pwd=8888 提取码: 8888 
+
+
+## 训练
+* LineMOD Dataset:
+	After you have downloaded and unzipped the Linemod_preprocessed.zip, please run:
+```	
+./experiments/scripts/train_linemod1.sh
+```
+* 发黑氧化工业零件数据集:
+	After you have downloaded and unzipped the Linemod_preprocessed.zip, please run:
+```	
+./experiments/scripts/train_linemod3.sh
+```
+
+## 评估
+
+### Evaluation on LineMOD Dataset
+Just run:
+```
+./experiments/scripts/eval_linemod1.sh
+```
+
+### 评估发黑氧化工业零件数据集
+Just run:
+```
+python ./tools/eval_linemod3.py
+```
