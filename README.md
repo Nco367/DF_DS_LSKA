@@ -11,7 +11,7 @@
 * [LineMOD](http://campar.in.tum.de/Main/StefanHinterstoisser): Download the [preprocessed LineMOD dataset](https://drive.google.com/drive/folders/19ivHpaKm9dOrr12fzC8IDFczWRPFxho7) (including the testing results outputted by the trained vanilla SegNet used for evaluation).
 
 * 2、发黑氧化工业零件数据集
-* 链接：https://pan.baidu.com/s/1KW2PGaKfC8BidK62rP6tHw?pwd=8888 提取码: 8888 
+* 链接：[https://pan.baidu.com/s/1KW2PGaKfC8BidK62rP6tHw?pwd=8888](https://pan.baidu.com/s/1wAqbQHWoXMgoyabb5WfdhA?pwd=8888) 提取码: 8888 
 
 
 ## 训练
