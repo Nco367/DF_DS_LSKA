@@ -1,0 +1,5 @@
+(/conda_envs/df6d_pvn3d) q@q-MS-7D90:~/ku/DenseFusion-1/DenseFusion-1$
+
+conda activate df6d_pvn3d
+./experiments/scripts/train_linemod5.sh
+./experiments/scripts/eval_linemod5.sh

@@ -1,0 +1,1 @@
+./experiments/scripts/train_linemod.sh

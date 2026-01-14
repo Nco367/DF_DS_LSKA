@@ -1,0 +1,4 @@
+# ninja log v5
+1	454	0	/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cuda/knn.o	975a13aa94c87324
+0	8035	0	/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/cpu/knn_cpu.o	3319312c8d7604ce
+1	8409	0	/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/build/temp.linux-x86_64-cpython-39/home/q/ku/DenseFusion-1/DenseFusion-1/lib/knn/src/vision.o	bc7d8b67bb86bd37

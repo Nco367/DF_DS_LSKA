@@ -1,0 +1,162 @@
+[33mcommit a6a1c6a02f19cc8e274513f5228c20f85ca57467[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: q <1002480398@qq.com>
+Date:   Tue Jul 8 07:31:29 2025 +0800
+
+    本次改动说明
+
+[33mcommit 153e077320218b54d96b36d15b5249272564f2b6[m
+Author: q <1002480398@qq.com>
+Date:   Tue Jul 8 07:28:05 2025 +0800
+
+    本次改动说明
+
+[33mcommit 8a4307711f93b96c59fb90e68e04bc25b1f726a0[m
+Author: q <1002480398@qq.com>
+Date:   Tue Jul 8 07:12:56 2025 +0800
+
+    本次改动说明
+
+[33mcommit 998c76cba8c99feb6627af8b736709812a4ba389[m
+Author: q <1002480398@qq.com>
+Date:   Tue Jul 8 01:45:54 2025 +0800
+
+    首次提交项目代码
+
+[33mcommit 301dd96443f2a4e62a134397cfb1538753549ee6[m
+Author: q <1002480398@qq.com>
+Date:   Sat Mar 22 18:36:52 2025 +0800
+
+    1
+
+[33mcommit 1bf531bacf1c9a73af8a99189b2a52fd6de0d969[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Sun Sep 29 21:17:30 2019 -0400
+
+    follow master
+
+[33mcommit 923c612971c50af5173bb9fd400115246a57ffe3[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Sun Sep 29 21:15:57 2019 -0400
+
+    follow master
+
+[33mcommit 3fe1a9811f5c5a958dd6b8336d3aeefbe0a6e4ba[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Sat Apr 13 20:58:36 2019 +0800
+
+    compatible with py2
+
+[33mcommit 05aafa9583d3c0eca9a0af959843068f87187e43[m
+Merge: 59b1a66c a04c38cc
+Author: Jeremy Wang <jere.wang@sjtu.edu.cn>
+Date:   Tue Apr 9 11:51:15 2019 +0800
+
+    Merge pull request #28 from huipengly/Pytorch-1.0
+    
+     fix bug in knn lib import
+
+[33mcommit a04c38cc1c05b384445768c21a905d66a03d920e[m
+Merge: 864e1d08 08f485fc
+Author: huipengly <huipengly@gmail.com>
+Date:   Mon Apr 8 22:47:18 2019 +0800
+
+    Merge branch 'master' into Pytorch-1.0
+
+[33mcommit 08f485fc2f60891f9650e92212f7d9aca9e6b3b9[m
+Author: huipengly <huipengly@gmail.com>
+Date:   Mon Apr 8 22:46:04 2019 +0800
+
+    Update README.md
+
+[33mcommit 864e1d083a349681aa98d5deddeba3ae7bce5e67[m
+Author: huipengly <huipengly@gmail.com>
+Date:   Mon Apr 8 22:20:00 2019 +0800
+
+    fix bug in knn lib import
+
+[33mcommit 88aaa21d5fc9665796eb9fc2dec0933aee4be1cb[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Sun Apr 7 13:35:13 2019 +0800
+
+    small fix on memory leak and segmentation training
+
+[33mcommit 59b1a66c3d3e27bdb5a70bdb3671f2044dd9c06b[m
+Merge: dd8ff1a4 33d75ca8
+Author: Jeremy Wang <jere.wang@sjtu.edu.cn>
+Date:   Mon Apr 1 20:27:35 2019 +0800
+
+    Merge pull request #21 from huipengly/pytorch-1.0
+    
+    add PyTorch 1.0 support
+
+[33mcommit 33d75ca8598e0577f3b70606f1033b759efc6613[m
+Author: huipengly <huipengly@gmail.com>
+Date:   Mon Apr 1 19:21:05 2019 +0800
+
+    add PyTorch 1.0 support
+
+[33mcommit dd8ff1a4d67faac1149e378045135b45b6f810f1[m
+Author: danfei <danfeiX@users.noreply.github.com>
+Date:   Fri Mar 1 13:51:06 2019 -0800
+
+    Update README.md
+
+[33mcommit 813940ae2ae33fa0ccd65e778037e5882d3ad282[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Tue Feb 26 19:49:49 2019 +0800
+
+    make eval_linemod easier to understand
+
+[33mcommit 42a21e76ff5391d3703d4e144a0831faf6fbdf43[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Tue Jan 29 00:53:01 2019 +0800
+
+    update readme
+
+[33mcommit 58b361e0087fe2c15f1e6b5d57026cb294e4bc2b[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Tue Jan 29 00:31:17 2019 +0800
+
+    fix the download script
+
+[33mcommit a083c20a9427335945e997314336b05181f176d8[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Thu Jan 17 11:27:44 2019 +0800
+
+    add bib
+
+[33mcommit 43119632544e06c4a77336365ce1479e6abd8da1[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Wed Jan 16 09:58:09 2019 +0800
+
+    add arXiv link
+
+[33mcommit ee847a37785e660a3e11cb3cce834b9773e83e1a[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Tue Jan 15 23:08:17 2019 +0800
+
+    clean
+
+[33mcommit 9e0e4bf9c48c7650ce962aa1b033d286e30f0fcd[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Mon Jan 14 19:12:51 2019 +0800
+
+    clean links
+
+[33mcommit 67beaee5aef5c66102bdf4bbe9cf6f4ab7c7e4d2[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Mon Jan 14 19:11:24 2019 +0800
+
+    add scripts
+
+[33mcommit 8d3477661308f5aeb2637046b323ae9adbd44211[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Fri Jan 11 17:49:56 2019 +0800
+
+    add links
+
+[33mcommit 4887432e4ac4a3e1f545b525f84b638df7aecc29[m
+Author: jwangzzz <j96w@qq.com>
+Date:   Fri Jan 11 17:46:11 2019 +0800
+
+    first commit
